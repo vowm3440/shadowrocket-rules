@@ -1,0 +1,93 @@
+name: Update Shadowrocket rules
+
+on:
+  schedule:
+    # UTC 23:50 = 次日北京时间 07:50；GitHub 排队可能延迟。
+    - cron: '50 23 * * *'
+  workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/**'
+      - 'templates/**'
+      - 'local/**'
+      - 'sources.json'
+      - 'settings.json'
+      - '.github/workflows/update-rules.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: shadowrocket-rules-${{ github.repository }}
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      RULES_BRANCH: ${{ github.event.repository.default_branch }}
+      PYTHONUNBUFFERED: '1'
+    steps:
+      - name: Checkout default branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          fetch-depth: 1
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install initial project bundle if present
+        shell: bash
+        env:
+          INITIAL_BUNDLE_SHA256: 94b511c51dd9ef219e584624f843547406a46acf434f45e65a36683b58b85d73
+        run: |
+          set -euo pipefail
+          if [ ! -f bootstrap.zip ]; then
+            exit 0
+          fi
+          python - <<'PYBOOTSTRAP'
+          import hashlib, os, pathlib, zipfile
+          bundle = pathlib.Path('bootstrap.zip')
+          if hashlib.sha256(bundle.read_bytes()).hexdigest() != os.environ['INITIAL_BUNDLE_SHA256']:
+              raise SystemExit('Initial project bundle hash mismatch')
+          root = pathlib.Path.cwd().resolve()
+          with zipfile.ZipFile(bundle) as archive:
+              for item in archive.infolist():
+                  parts = pathlib.PurePosixPath(item.filename).parts
+                  if not parts or parts[0] != 'shadowrocket-auto' or len(parts) < 2:
+                      raise SystemExit('Invalid bundle prefix')
+                  relative = pathlib.Path(*parts[1:])
+                  if '.git' in relative.parts or '.github' in relative.parts or '..' in relative.parts:
+                      raise SystemExit('Disallowed bundle path')
+                  destination = (root / relative).resolve()
+                  if root not in destination.parents:
+                      raise SystemExit('Bundle path escapes checkout')
+                  destination.parent.mkdir(parents=True, exist_ok=True)
+                  destination.write_bytes(archive.read(item))
+          PYBOOTSTRAP
+          git rm bootstrap.zip
+          git add .gitignore README.md SOURCES.md adblock.list adblock.sgmodule docs licenses local manifest.json objects routing.conf rules scripts settings.json sources.json templates tests whitelist-removed.tsv
+      - name: Check parser and whitelist behavior
+        run: python -m unittest discover -s tests -v
+      - name: Fetch all sources and build a complete generation
+        # GITHUB_REPOSITORY 由 GitHub 自动提供，无需 PAT，也不向 iPhone 暴露令牌。
+        run: python scripts/build.py
+      - name: Validate generated configuration and object hashes
+        run: python scripts/validate.py
+      - name: Commit and push generated files together
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add routing.conf adblock.sgmodule adblock.list rules objects manifest.json whitelist-removed.tsv
+          if git diff --cached --quiet; then
+            echo 'No generated changes.'
+            exit 0
+          fi
+          build_date="$(TZ=Asia/Shanghai date +'%Y-%m-%d %H:%M:%S')"
+          git commit -m "Update Shadowrocket rules ${build_date} CST"
+          # 非快进/受保护分支时失败，不强推、不覆盖用户提交；修复后重新 Run workflow。
+          git push origin "HEAD:${RULES_BRANCH}"
