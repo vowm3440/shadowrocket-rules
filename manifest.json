@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "build_id": "20261018T102626328801+0800",
-  "generated_at": "2026-10-18T10:26:26.328801+08:00",
-  "generated_date_bjt": "2026-10-18",
+  "build_id": "20261019T075251208846+0800",
+  "generated_at": "2026-10-19T07:52:51.208846+08:00",
+  "generated_date_bjt": "2026-10-19",
   "repository": "vowm3440/shadowrocket-rules",
   "branch": "main",
   "requires_repository_binding": false,
@@ -18,7 +18,7 @@
     "disney": 172,
     "apple": 1580,
     "microsoft": 668,
-    "proxy": 26582,
+    "proxy": 26592,
     "lan": 140,
     "cn-domain": 110360,
     "cn-ip": 10009,
@@ -30,7 +30,7 @@
     {
       "url": "https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-surge.txt",
       "sha256": "85b30ad8d45906f4499cdec448a42dcac0e543cfa9e39aef2f849655ba51bb47",
-      "fetched_at": "2026-10-18T02:26:24.526744+00:00",
+      "fetched_at": "2026-10-18T23:52:49.629048+00:00",
       "last_modified": null,
       "etag": "\"f5ca3341fe77dcf4803be8f555bd2886ed5a6832033775f76fcb4ffe3d8d3d8c\"",
       "id": "antiad",
@@ -44,7 +44,7 @@
     {
       "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/Anthropic/Anthropic.list",
       "sha256": "ee68bf42bf5666943067127776e40643f6f52bdd911152b1be62b3ecb187dc8e",
-      "fetched_at": "2026-10-18T02:26:23.730087+00:00",
+      "fetched_at": "2026-10-18T23:52:48.357452+00:00",
       "last_modified": null,
       "etag": "\"1f0541fd9a14572ca5060bb332f3a6257592f739e676f5402c2d056134970b4e\"",
       "id": "bm_Anthropic",
@@ -58,7 +58,7 @@
     {
       "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/Apple/Apple.list",
       "sha256": "0c0262104652ba952e4a933ecec393a33a11085c68c37d0b70c4074e7823f6cb",
-      "fetched_at": "2026-10-18T02:26:23.832743+00:00",
+      "fetched_at": "2026-10-18T23:52:48.430385+00:00",
       "last_modified": null,
       "etag": "\"1ebce43fb7f8310d4385a06ee44f9d3ba6624dc94100218bde19b27265ac6fb0\"",
       "id": "bm_Apple",
@@ -74,7 +74,7 @@
     {
       "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/Apple/Apple_Domain.list",
       "sha256": "da43be83adf67a00dfa65d883a423251b9a1497d45611f41d07bbb495852c8a4",
-      "fetched_at": "2026-10-18T02:26:23.851536+00:00",
+      "fetched_at": "2026-10-18T23:52:48.530417+00:00",
       "last_modified": null,
       "etag": "\"fb9196a65141df74106fd3bd50039cf323dfd1f3ab85605e725be56d89e0a0ca\"",
       "id": "bm_Apple_domains",
@@ -88,7 +88,7 @@
     {
       "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/Claude/Claude.list",
       "sha256": "870e7e25d798e7f00338507f773b0eea4dfd15e25e9df0a27d5ae421ae1ab378",
-      "fetched_at": "2026-10-18T02:26:23.738401+00:00",
+      "fetched_at": "2026-10-18T23:52:48.517474+00:00",
       "last_modified": null,
       "etag": "\"560d7aa01da3ea96cf5b8c52e00f8dc8d246bd2193a5753d62d473dc8d619141\"",
       "id": "bm_Claude",
@@ -102,7 +102,7 @@
     {
       "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/Direct/Direct.list",
       "sha256": "88e776cebb83abd1b36d50e924f691a9e6d8f38dabfd6b882c63d227c19c4ec7",
-      "fetched_at": "2026-10-18T02:26:23.720421+00:00",
+      "fetched_at": "2026-10-18T23:52:48.317574+00:00",
       "last_modified": null,
       "etag": "\"09b2896c5a426c54bb9d894fc26b549b2925404db88cbed941307c4ec85e851b\"",
       "id": "bm_Direct",
@@ -118,7 +118,7 @@
     {
       "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/Disney/Disney.list",
       "sha256": "65ededc7b608e440f3d918f6e95b19ca52460c8fe368dbd9e840b4bc8669f753",
-      "fetched_at": "2026-10-18T02:26:23.863519+00:00",
+      "fetched_at": "2026-10-18T23:52:48.593989+00:00",
       "last_modified": null,
       "etag": "\"75e82c14edc4a2d234a5a09675755ece7edc44ae7b82d5d6c84e67f739fdc19f\"",
       "id": "bm_Disney",
@@ -134,7 +134,7 @@
     {
       "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/Gemini/Gemini.list",
       "sha256": "db8f69154426dca76792ab80b3ad6b0e2d078ebe0e52e76faec1724245a4ec49",
-      "fetched_at": "2026-10-18T02:26:23.725334+00:00",
+      "fetched_at": "2026-10-18T23:52:48.321220+00:00",
       "last_modified": null,
       "etag": "\"56eca4cfa6e1909e80dd076d7a2b352f5a2d57bd58fbda85d54c11db90cad6bc\"",
       "id": "bm_Gemini",
@@ -148,7 +148,7 @@
     {
       "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/Lan/Lan.list",
       "sha256": "e524edec216ed7f2fa2f3eb3fe09fe70121acf88408c2394d19b3e2331c54de7",
-      "fetched_at": "2026-10-18T02:26:23.752832+00:00",
+      "fetched_at": "2026-10-18T23:52:48.274330+00:00",
       "last_modified": null,
       "etag": "\"7e11c36e5f60424ed6ce7526f890dbace8e97abda4710535d08cf0efd1e79b6f\"",
       "id": "bm_Lan",
@@ -162,7 +162,7 @@
     {
       "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/Microsoft/Microsoft.list",
       "sha256": "22df1a1017ad5d41755bf020ca8eb9afeedc7bdc2c649ed2074b255227a7ed8e",
-      "fetched_at": "2026-10-18T02:26:24.060313+00:00",
+      "fetched_at": "2026-10-18T23:52:48.422396+00:00",
       "last_modified": null,
       "etag": "\"1b1fd9c1f31b720f05fe5b71fd6fccb67b7a7b118fab8b11878b2d6673c15c98\"",
       "id": "bm_Microsoft",
@@ -178,7 +178,7 @@
     {
       "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/Netflix/Netflix.list",
       "sha256": "ec37f90727e7db062d754487c4bed68ae8bba28f349aef0995f10c06f5e8b231",
-      "fetched_at": "2026-10-18T02:26:23.792430+00:00",
+      "fetched_at": "2026-10-18T23:52:48.307627+00:00",
       "last_modified": null,
       "etag": "\"5c28ff391b9d507f50cbcd33b20f1a1b52cf70fc6254943825d690eb9e3493df\"",
       "id": "bm_Netflix",
@@ -194,7 +194,7 @@
     {
       "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/OpenAI/OpenAI.list",
       "sha256": "6f4047cdbf6953cf5d9b38c4ccd6da7bc6f1acb91b7a87134f25d5b8f5d2408b",
-      "fetched_at": "2026-10-18T02:26:23.707181+00:00",
+      "fetched_at": "2026-10-18T23:52:48.327077+00:00",
       "last_modified": null,
       "etag": "\"5a77a047af6e3b3b01f17154a5b02f5113d0205bb83cb21a6c71319d9806eb92\"",
       "id": "bm_OpenAI",
@@ -208,7 +208,7 @@
     {
       "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/Telegram/Telegram.list",
       "sha256": "09f093cce5b3e2994147a2640e03040aac75e1db7bf2103fd1c9a2509b0176ab",
-      "fetched_at": "2026-10-18T02:26:23.754322+00:00",
+      "fetched_at": "2026-10-18T23:52:48.477014+00:00",
       "last_modified": null,
       "etag": "\"536fc75e57b8eb145657a44f4deb612d84b9b7ec519c8274af95f431745959fd\"",
       "id": "bm_Telegram",
@@ -222,7 +222,7 @@
     {
       "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/YouTube/YouTube.list",
       "sha256": "f764cd91a779982225b3553ece8033c86a6545f4990f5fefd356805de962aee9",
-      "fetched_at": "2026-10-18T02:26:23.840298+00:00",
+      "fetched_at": "2026-10-18T23:52:48.399879+00:00",
       "last_modified": null,
       "etag": "\"caef0f2f4654a03ecc946519a18b0a320e4a23e363634cecd6eb1307bd11d9d8\"",
       "id": "bm_YouTube",
@@ -238,7 +238,7 @@
     {
       "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/AdvertisingLite/AdvertisingLite_Domain.list",
       "sha256": "e43ab7970cfa5bde9b222a18c0f5673dcced42e1bfada25f04254a514231ec34",
-      "fetched_at": "2026-10-18T02:26:24.216685+00:00",
+      "fetched_at": "2026-10-18T23:52:48.714177+00:00",
       "last_modified": null,
       "etag": "\"c4bd82a24bd5d84ddede6e8c7d087081a8f3d179fd1870f719b528d5bc43d9f5\"",
       "id": "bm_ad_domains",
@@ -252,7 +252,7 @@
     {
       "url": "https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/ruleset/cncidr.txt",
       "sha256": "67a7a93502bfaf35b0ac7a8b6dc3ad14c6825dc56e5b30eebf87060beb2232fa",
-      "fetched_at": "2026-10-18T02:26:23.991840+00:00",
+      "fetched_at": "2026-10-18T23:52:48.881839+00:00",
       "last_modified": null,
       "etag": "\"17eea01a3d21f0f4b96a5e35f48223a2967860f213eeb0cb86cfd174bd880191\"",
       "id": "loyal_cncidr",
@@ -264,7 +264,7 @@
     {
       "url": "https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/direct.txt",
       "sha256": "0a575148b9c251a04d655e590269de1b43ed3548a1cdba085e41646940a8436d",
-      "fetched_at": "2026-10-18T02:26:24.389603+00:00",
+      "fetched_at": "2026-10-18T23:52:48.985791+00:00",
       "last_modified": null,
       "etag": "\"d1686b5eabf799e6a4095859b7337882f516418217ccd4f889fba9cb33e43f71\"",
       "id": "loyal_direct",
@@ -276,7 +276,7 @@
     {
       "url": "https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/gfw.txt",
       "sha256": "cf4630a8890246495ae931cead8f5597eb0b950b73b5ad3d87de95363275c87e",
-      "fetched_at": "2026-10-18T02:26:24.108732+00:00",
+      "fetched_at": "2026-10-18T23:52:48.545886+00:00",
       "last_modified": null,
       "etag": "\"cee358bd02307c411999c8d6993b9bf95ae84fffd23a1a6b20c1e85946cdc042\"",
       "id": "loyal_gfw",
@@ -287,13 +287,13 @@
     },
     {
       "url": "https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/proxy.txt",
-      "sha256": "5304a7ac0a9edb373e97d955e59d7b57e7a14d2fd88c198a1f1c9a84b3230d36",
-      "fetched_at": "2026-10-18T02:26:23.924136+00:00",
+      "sha256": "9c85619de9b1ad553beebf87cdd84105c22257d70c0493b5131e58203478e9d3",
+      "fetched_at": "2026-10-18T23:52:49.239407+00:00",
       "last_modified": null,
-      "etag": "\"bf31cc58035d64ad7f69ddba766e23ee5375a00523962d29ef322be2be9fda3c\"",
+      "etag": "\"784cea73311d1af7c26f3f0da4ddb145b42c5868ad6c7ed04fac2716f0fab8a8\"",
       "id": "loyal_proxy",
       "target": "proxy",
-      "parsed_rules": 27245,
+      "parsed_rules": 27257,
       "omitted_types": {},
       "upstream_version_hints": []
     }
@@ -315,7 +315,7 @@
   "adblock_version": "v2",
   "files_sha256": {
     "adblock.list": "d7f88ced701b8bf89af8a60cdca93f9f8cb0f8c53864bc10f93a936083c41786",
-    "adblock.sgmodule": "5cdb937dff78df56f76896318baaba34c18a032c5c07a81ab2fa47e650c17ded",
+    "adblock.sgmodule": "f0037cce561db885592a3a5af669d89b4f0ab898d77ce198133ef900592d98a3",
     "objects/04080623545f667b5ecf9ca0ae2e70a3c074293ea9923e9458323cc8d9be9c18.list": "04080623545f667b5ecf9ca0ae2e70a3c074293ea9923e9458323cc8d9be9c18",
     "objects/229a2200dcf175466da085393105a5df1ef494140accb4141fce34a635def286.list": "229a2200dcf175466da085393105a5df1ef494140accb4141fce34a635def286",
     "objects/2bee0731adb92cd3935960592e0d8d81fcfe62b2505a7da5dfb7fe5e188140b7.list": "2bee0731adb92cd3935960592e0d8d81fcfe62b2505a7da5dfb7fe5e188140b7",
@@ -324,8 +324,8 @@
     "objects/4ef9afb9cfe4541dbd328a067c05436e1f2ac7bf1c1076fe2a0ecca2a8fb4429.list": "4ef9afb9cfe4541dbd328a067c05436e1f2ac7bf1c1076fe2a0ecca2a8fb4429",
     "objects/694886c38cd22da2a15ec6ef6b3551ce5c11794c4d390157f903a3e77fd72ce0.list": "694886c38cd22da2a15ec6ef6b3551ce5c11794c4d390157f903a3e77fd72ce0",
     "objects/a121d21b7abf81ed94932c037ff9d695bd07cffc784496f26157de97fc4d5521.list": "a121d21b7abf81ed94932c037ff9d695bd07cffc784496f26157de97fc4d5521",
-    "objects/a43e21b799d879cfde23423b35803b5f842a771a9b048a78dad41cebef94da68.list": "a43e21b799d879cfde23423b35803b5f842a771a9b048a78dad41cebef94da68",
     "objects/b246288418e391a77d3e9dfcaedce21a2fd92467c94d76a639fdd83e08c6e5c5.list": "b246288418e391a77d3e9dfcaedce21a2fd92467c94d76a639fdd83e08c6e5c5",
+    "objects/bc1529857246f064e5c446a050723bb737c6b4ea4c73b0fb5dc37ceefb31a138.list": "bc1529857246f064e5c446a050723bb737c6b4ea4c73b0fb5dc37ceefb31a138",
     "objects/c03b8e05355277051c295957bf9100ff59d01e0dd824c36e48c5292940792a53.list": "c03b8e05355277051c295957bf9100ff59d01e0dd824c36e48c5292940792a53",
     "objects/c2b187ab3257be44fbb1ae618c696018cae6c5a1b9193408dbb8c8ca51871ab0.js": "c2b187ab3257be44fbb1ae618c696018cae6c5a1b9193408dbb8c8ca51871ab0",
     "objects/d0cea655def10362df65ce8edf92bc09d1da688df805ee2ef071cee848242c7c.list": "d0cea655def10362df65ce8edf92bc09d1da688df805ee2ef071cee848242c7c",
@@ -333,7 +333,7 @@
     "objects/f21f1a9e13fb41366f010b38151d091e6fe10c35d8e3cc8a1a3809c28232af9e.list": "f21f1a9e13fb41366f010b38151d091e6fe10c35d8e3cc8a1a3809c28232af9e",
     "objects/f58ed13b34bfa3b4301430ee31c5e98a134b94dd5d90f48dce9bbabc1f62ce91.list": "f58ed13b34bfa3b4301430ee31c5e98a134b94dd5d90f48dce9bbabc1f62ce91",
     "objects/fa0324602bcf248583121ad8ff923b224eff0d7b559905e8405f36408132feba.list": "fa0324602bcf248583121ad8ff923b224eff0d7b559905e8405f36408132feba",
-    "routing.conf": "01f2b6982bbf94c976bffc5c670237b349a005b2e4259ec5bab64e92198e00f1",
+    "routing.conf": "3bbfae76262f36c26b75d5d5ee4f9c0672138145e694de78bae19fe5e6645327",
     "rules/apple.list": "f58ed13b34bfa3b4301430ee31c5e98a134b94dd5d90f48dce9bbabc1f62ce91",
     "rules/claude.list": "04080623545f667b5ecf9ca0ae2e70a3c074293ea9923e9458323cc8d9be9c18",
     "rules/cn-domain.list": "38bfc48d2ba0e5e1b94712397353169905e4cdb9e9a7d4a91e7953f8383554cf",
@@ -345,7 +345,7 @@
     "rules/microsoft.list": "f21f1a9e13fb41366f010b38151d091e6fe10c35d8e3cc8a1a3809c28232af9e",
     "rules/netflix.list": "fa0324602bcf248583121ad8ff923b224eff0d7b559905e8405f36408132feba",
     "rules/openai.list": "2bee0731adb92cd3935960592e0d8d81fcfe62b2505a7da5dfb7fe5e188140b7",
-    "rules/proxy.list": "a43e21b799d879cfde23423b35803b5f842a771a9b048a78dad41cebef94da68",
+    "rules/proxy.list": "bc1529857246f064e5c446a050723bb737c6b4ea4c73b0fb5dc37ceefb31a138",
     "rules/telegram.list": "d0cea655def10362df65ce8edf92bc09d1da688df805ee2ef071cee848242c7c",
     "rules/unbreak.list": "694886c38cd22da2a15ec6ef6b3551ce5c11794c4d390157f903a3e77fd72ce0",
     "rules/youtube.list": "229a2200dcf175466da085393105a5df1ef494140accb4141fce34a635def286",
