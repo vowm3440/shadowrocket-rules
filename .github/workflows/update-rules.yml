@@ -9,6 +9,7 @@ on:
     paths:
       - 'scripts/**'
       - 'templates/**'
+      - 'tests/**'
       - 'local/**'
       - 'sources.json'
       - 'settings.json'
@@ -41,7 +42,7 @@ jobs:
       - name: Install initial project bundle if present
         shell: bash
         env:
-          INITIAL_BUNDLE_SHA256: 94b511c51dd9ef219e584624f843547406a46acf434f45e65a36683b58b85d73
+          INITIAL_BUNDLE_SHA256: 7d69cdb4c78312ecd61c0c7f42f600e7c50d83679f97d2d17f220a56868fe7ed
         run: |
           set -euo pipefail
           if [ ! -f bootstrap.zip ]; then
