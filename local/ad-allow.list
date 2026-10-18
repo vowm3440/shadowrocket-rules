@@ -1,0 +1,34 @@
+# 只用于广告列表剔除，不强制改变这些服务原本的路由。
+# 允许域名及其子域；与白名单交叠的上级广告后缀也整体移除。
+DOMAIN-SUFFIX,push.apple.com
+DOMAIN,init.push.apple.com
+DOMAIN-SUFFIX,icloud.com
+DOMAIN-SUFFIX,appleid.apple.com
+DOMAIN-SUFFIX,alipay.com
+DOMAIN-SUFFIX,alipayobjects.com
+DOMAIN-SUFFIX,tenpay.com
+DOMAIN-SUFFIX,weixin.qq.com
+DOMAIN-SUFFIX,95516.com
+DOMAIN-SUFFIX,unionpay.com
+DOMAIN-SUFFIX,unionpayintl.com
+DOMAIN-SUFFIX,icbc.com.cn
+DOMAIN-SUFFIX,ccb.com
+DOMAIN-SUFFIX,abchina.com
+DOMAIN-SUFFIX,abchina.com.cn
+DOMAIN-SUFFIX,boc.cn
+DOMAIN-SUFFIX,bankcomm.com
+DOMAIN-SUFFIX,cmbchina.com
+DOMAIN-SUFFIX,psbc.com
+DOMAIN-SUFFIX,95559.com.cn
+# 登录/反机器人依赖，避免广告域名库误杀登录。
+DOMAIN-SUFFIX,hcaptcha.com
+DOMAIN-SUFFIX,recaptcha.net
+DOMAIN,challenges.cloudflare.com
+DOMAIN-SUFFIX,arkoselabs.com
+DOMAIN-SUFFIX,auth0.com
+DOMAIN-SUFFIX,statsig.com
+# 交给路径重写，避免整个 API 域名先被域名拦截。
+DOMAIN,api.zhihu.com
+DOMAIN,sdkapp.uve.weibo.com
+DOMAIN,ad.cj.sina.cn
+DOMAIN,msg.umengcloud.com

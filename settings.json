@@ -1,0 +1,6 @@
+{
+  "repository": "vowm3440/shadowrocket-rules",
+  "branch": "main",
+  "node_filter": ".*",
+  "quic_block": true
+}

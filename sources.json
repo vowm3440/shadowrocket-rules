@@ -1,0 +1,135 @@
+[
+  {
+    "id": "bm_Direct",
+    "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/Direct/Direct.list",
+    "format": "rules",
+    "target": "unbreak",
+    "min_rules": 1
+  },
+  {
+    "id": "bm_Lan",
+    "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/Lan/Lan.list",
+    "format": "rules",
+    "target": "lan",
+    "min_rules": 1
+  },
+  {
+    "id": "bm_OpenAI",
+    "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/OpenAI/OpenAI.list",
+    "format": "rules",
+    "target": "openai",
+    "min_rules": 1
+  },
+  {
+    "id": "bm_Claude",
+    "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/Claude/Claude.list",
+    "format": "rules",
+    "target": "claude",
+    "min_rules": 1
+  },
+  {
+    "id": "bm_Anthropic",
+    "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/Anthropic/Anthropic.list",
+    "format": "rules",
+    "target": "claude",
+    "min_rules": 1
+  },
+  {
+    "id": "bm_Gemini",
+    "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/Gemini/Gemini.list",
+    "format": "rules",
+    "target": "gemini",
+    "min_rules": 1
+  },
+  {
+    "id": "bm_Telegram",
+    "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/Telegram/Telegram.list",
+    "format": "rules",
+    "target": "telegram",
+    "min_rules": 1
+  },
+  {
+    "id": "bm_Netflix",
+    "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/Netflix/Netflix.list",
+    "format": "rules",
+    "target": "netflix",
+    "min_rules": 1
+  },
+  {
+    "id": "bm_YouTube",
+    "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/YouTube/YouTube.list",
+    "format": "rules",
+    "target": "youtube",
+    "min_rules": 1
+  },
+  {
+    "id": "bm_Disney",
+    "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/Disney/Disney.list",
+    "format": "rules",
+    "target": "disney",
+    "min_rules": 1
+  },
+  {
+    "id": "bm_Apple",
+    "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/Apple/Apple.list",
+    "format": "rules",
+    "target": "apple",
+    "min_rules": 1
+  },
+  {
+    "id": "bm_Apple_domains",
+    "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/Apple/Apple_Domain.list",
+    "format": "domains",
+    "target": "apple",
+    "min_rules": 0
+  },
+  {
+    "id": "bm_Microsoft",
+    "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/Microsoft/Microsoft.list",
+    "format": "rules",
+    "target": "microsoft",
+    "min_rules": 1
+  },
+  {
+    "id": "loyal_direct",
+    "url": "https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/direct.txt",
+    "format": "domains",
+    "target": "cn-domain",
+    "min_rules": 1000
+  },
+  {
+    "id": "loyal_proxy",
+    "url": "https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/proxy.txt",
+    "format": "domains",
+    "target": "proxy",
+    "min_rules": 1000
+  },
+  {
+    "id": "loyal_gfw",
+    "url": "https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/gfw.txt",
+    "format": "domains",
+    "target": "proxy",
+    "min_rules": 100
+  },
+  {
+    "id": "loyal_cncidr",
+    "url": "https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/ruleset/cncidr.txt",
+    "format": "rules",
+    "target": "cn-ip",
+    "min_rules": 1000
+  },
+  {
+    "id": "antiad",
+    "url": "https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-surge.txt",
+    "format": "rules",
+    "target": "adblock",
+    "min_rules": 1000
+  },
+  {
+    "id": "bm_ad_domains",
+    "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/AdvertisingLite/AdvertisingLite_Domain.list",
+    "format": "domains",
+    "target": "adblock",
+    "min_rules": 1000
+  }
+]

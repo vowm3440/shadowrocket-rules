@@ -1,0 +1,5 @@
+# Generated Shadowrocket RULE-SET: direct
+# Attribution and source hashes: manifest.json / SOURCES.md
+DOMAIN,captive.apple.com
+DOMAIN,localhost
+DOMAIN,time.apple.com

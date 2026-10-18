@@ -1,0 +1,4 @@
+# 第一层本地直连修正；不要把整个 cn-domain.list 放到这里。
+DOMAIN,captive.apple.com
+DOMAIN,time.apple.com
+DOMAIN,localhost

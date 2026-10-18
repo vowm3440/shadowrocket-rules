@@ -1,0 +1,28 @@
+#!name=Independent-AdBlock
+#!desc=独立去广告；构建 {{GENERATED_AT}}；关闭此模块即关闭本方案全部去广告
+# {{DEPLOYMENT_NOTE}}
+# 域名层无需证书；HTTPS 路径重写需要单独开启 MITM。
+# 模块规则优先于主配置，白名单已在生成 adblock.list 时剔除。
+
+[Rule]
+# 正确的 Shadowrocket 子规则键是 DST-PORT。
+# 用户要求的 DEST-PORT 写法不直接使用，以免编译器忽略。
+# 阻断进入隧道的 UDP/443，使支持回退的 HTTP/3 改走 TCP。
+# 不能使 YouTube 同源视频广告自动消失，也不阻断其他端口上的 QUIC。
+{{QUIC_RULE}}
+RULE-SET,{{RULE_adblock}},REJECT
+
+[URL Rewrite]
+# 只处理少量明确的广告/广告统计接口，不触碰登录、支付和通用推荐接口。
+# 空字典/空响应只适用于兼容的接口；不同 App 版本仍需实际验证。
+^https?:\/\/api\.zhihu\.com\/fringe\/ad(?:[/?]|$) - reject-dict
+^https?:\/\/api\.zhihu\.com\/commercial_api\/answer\/\d+\/bottom-v2(?:[/?]|$) - reject-dict
+^https?:\/\/sdkapp\.uve\.weibo\.com\/interface\/sdk\/actionad\.php(?:\?|$) - reject-dict
+^https?:\/\/ad\.cj\.sina\.cn\/(?:osa\/adpreload|fax\/impress)(?:[/?]|$) - reject-200
+^https?:\/\/msg\.umengcloud\.com\/admsg\/ - reject
+
+[MITM]
+# 此处仅追加明确主机名，不自动启用 HTTPS 解密、不携带 CA 或私钥。
+# 不使用 *、*.com、*.cn、*.qq.com、*.alipay.com 等宽泛解密范围。
+# 不添加网银/支付/身份认证/Apple 推送服务器；其他模块的范围也需检查。
+hostname = %APPEND% api.zhihu.com,sdkapp.uve.weibo.com,ad.cj.sina.cn,msg.umengcloud.com
