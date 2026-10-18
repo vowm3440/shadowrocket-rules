@@ -245,6 +245,17 @@ def validate_output(folder: Path):
             if not separator or action not in {"reject", "reject-200", "reject-dict"}:
                 raise ValueError("invalid rewrite action")
             re.compile(pattern)
+        elif section == "[Script]" and " = " in line and not line.startswith("#"):
+            options = dict(part.strip().split("=", 1) for part in line.split(" = ", 1)[1].split(","))
+            if options.get("type") != "http-response" or options.get("requires-body") != "1":
+                raise ValueError("invalid response script options")
+            re.compile(options["pattern"])
+            filename = options["script-path"].rsplit("/", 1)[-1]
+            if not re.fullmatch(r"[a-f0-9]{64}\.js", filename):
+                raise ValueError("script must use immutable content address")
+            script_file = folder / "objects" / filename
+            if not script_file.is_file() or sha(script_file.read_bytes()) != filename[:-3]:
+                raise ValueError("missing or corrupt script object")
     return manifest
 
 
@@ -322,6 +333,10 @@ def main():
             path.write_bytes(data)
             values["RULE_" + name] = f"{base}/objects/{digest}.list"
             counts[name] = len(groups[name])
+        script_data = (ROOT / "scripts/domestic-ads.js").read_bytes()
+        script_digest = sha(script_data)
+        (stage / "objects" / (script_digest + ".js")).write_bytes(script_data)
+        values["SCRIPT_domestic_ads"] = f"{base}/objects/{script_digest}.js"
         for name in ["routing.conf", "adblock.sgmodule"]:
             rendered = substitute((ROOT / "templates" / name).read_text(), values)
             (stage / name).write_text(rendered)
@@ -337,6 +352,7 @@ def main():
                     "routing_whitelist_conflicts_removed": len(route_removed),
                     "sources": sorted(sources, key=lambda s: s["id"]),
                     "local_sha256": local_hashes, "template_sha256": template_hashes,
+                    "script_sha256": {"domestic-ads.js": script_digest}, "adblock_version": "v2",
                     "files_sha256": file_hashes,
                     "validation_scope": "Static checks only; not compiled/executed on iOS Shadowrocket"}
         (stage / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")

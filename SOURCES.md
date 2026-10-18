@@ -36,8 +36,18 @@ The source repositories also aggregate data from other rule projects. Retain sou
 
 ## Manually reviewed rewrite endpoints
 
-The five narrow rewrite patterns in the module were selected with reference to blackmatrix7’s Shadowrocket rewrite collection; they are not a wholesale import of AllInOne. Other scripts and its broad MITM list are not included.
+The narrow rewrite patterns were selected with reference to blackmatrix7’s rewrite collection. v2 also references its Zhihu endpoint definitions and fmz200's Weibo feed schemas. No wholesale AllInOne import, third-party executable script download, VIP/account modifications, or broad MITM list is included.
 
 https://github.com/blackmatrix7/ios_rule_script/tree/master/rewrite/Shadowrocket/AllInOne
+
+Endpoint/schema references reviewed on 2026-10-18:
+
+- https://github.com/blackmatrix7/ios_rule_script/blob/master/script/zheye/zheye.snippet
+- https://github.com/blackmatrix7/ios_rule_script/tree/master/script/zheye
+- https://github.com/fmz200/wool_scripts/blob/main/Loon/plugin/weibo.plugin
+- https://github.com/fmz200/wool_scripts/blob/main/Scripts/weibo/weibo_main.js
+- https://github.com/fmz200/wool_scripts/blob/main/Scripts/weibo/weibo_ads.js
+
+`scripts/domestic-ads.js` is a small, local implementation using those documented API paths and explicit advertising fields. It is not a conversion or full copy of those scripts. Its deployed content digest is recorded in `manifest.json`; this review date does not imply upstream schemas or all app versions have been tested.
 
 For exact fetched content hashes, times, and upstream version comments, see `manifest.json`. A fetch date is not a maintenance date.

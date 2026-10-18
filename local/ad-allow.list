@@ -29,6 +29,11 @@ DOMAIN-SUFFIX,auth0.com
 DOMAIN-SUFFIX,statsig.com
 # 交给路径重写，避免整个 API 域名先被域名拦截。
 DOMAIN,api.zhihu.com
+DOMAIN,web-render.zhihu.com
+DOMAIN,api.weibo.cn
+DOMAIN,api.weibo.com
+DOMAIN,mapi.weibo.cn
+DOMAIN,mapi.weibo.com
 DOMAIN,sdkapp.uve.weibo.com
 DOMAIN,ad.cj.sina.cn
 DOMAIN,msg.umengcloud.com

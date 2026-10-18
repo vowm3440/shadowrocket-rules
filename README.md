@@ -17,7 +17,7 @@
 3. 首页的“全局路由”选择 **配置**。
 4. 配置 → 模块 → `+` → 输入广告模块地址 → 下载并启用 → 重新编译配置。域名过滤不需要证书。
 5. 在模块页关闭 `Independent-AdBlock`，即可关闭本方案全部去广告；主配置的分流继续工作。若还装了其他广告模块，它们仍会独立生效。
-6. 需要少量 HTTPS 路径去广告时，再按第 4 节在本机设置 MITM；不向本仓库上传 CA 私钥。
+6. 知乎/微博的 HTTPS 路径与信息流过滤，需要按第 4 节在本机设置 MITM。**v2 更新及广告残留排查见 [`docs/adblock-v2.md`](docs/adblock-v2.md)**；不向本仓库上传 CA 私钥。
 
 每天北京时间 **07:50** 由 GitHub Actions 调度更新，08:00 的 iOS 设置见 `docs/ios-0800.md`。源拉取或校验失败时不发布空规则。GitHub/iOS 的准点限制见第 5、6 节。
 
@@ -40,10 +40,11 @@ python3 scripts/validate.py
 | 文件 | 用途 |
 | --- | --- |
 | `routing.conf` | 完整主配置、加密 DNS、策略组与六层分流 |
-| `adblock.sgmodule` | 独立模块：加载广告列表、UDP/443 拦截、少量路径重写和精确 MITM 主机 |
+| `adblock.sgmodule` | v2 独立模块：广告列表、UDP/443、知乎/微博广告路径与响应脚本、精确 MITM 主机 |
 | `adblock.list` | 清洗、合并、去重并扣除白名单后的广告域名 |
 | `rules/*.list` | Direct/Unbreak、AI、Telegram、流媒体、Apple/Microsoft、Proxy、LAN/CN 等分流子集 |
 | `objects/<SHA256>.list` | 按内容寻址的子规则；生成配置实际引用这里，避免同一 URL 内容变化 |
+| `scripts/domestic-ads.js` / `objects/<SHA256>.js` | 本地维护的原生响应过滤脚本及不可变发布副本 |
 | `manifest.json` | 当前完整构建的版本、源哈希、规则数和输出文件哈希 |
 | `whitelist-removed.tsv` | 本次剔除的白名单冲突广告规则，便于排查 |
 | `local/*.list` | 持久维护本地补充规则与广告白名单 |
@@ -89,7 +90,7 @@ AND,((PROTOCOL,UDP),(DST-PORT,443)),REJECT
 
 这样能缩小 MITM 干预范围，但**不能保证网银/支付绝不风控**：VPN、出口 IP、设备状态也可能被检测。如果某个 App 有证书锁定，优先撤掉对应精确解密主机，保留域名广告过滤。
 
-URL Rewrite 只覆盖少数已知广告接口。`reject-dict` 返回空 JSON、`reject-200` 返回空 200、`reject` 拒绝请求；返回值必须符合客户端预期，不能保证所有版本不卡顿。**本方案不承诺去掉 YouTube 原生 App 视频中插广告，也不承诺清除知乎/微博所有信息流广告。**同源内容广告经常需要针对版本维护的 JSON 响应修改；不能靠通用域名规则和禁用 QUIC 完成。当前没有自动拉取并执行第三方 JS 脚本。
+URL Rewrite 覆盖少数已知广告接口。`reject-dict` 返回空 JSON、`reject-200` 返回空 200、`reject` 拒绝请求；返回值必须符合客户端预期，不能保证所有版本不卡顿。v2 增加本仓库维护的 `scripts/domestic-ads.js`，对精确接口中的知乎/微博广告标记做响应过滤，通过 `objects/<SHA256>.js` 发布，不自动导入第三方脚本。脚本不改会员/账号，遇到新结构或异常保留原响应。MITM 解密是 HTTPS 重写和响应脚本生效的共同前提；更新主配置不等于更新模块。**本方案不承诺去掉 YouTube 原生 App 视频中插广告，也不承诺清除知乎/微博或所有国内 App 的全部广告。** 详细覆盖和排查见 `docs/adblock-v2.md`。
 
 ## 5. 每天 07:50 更新与缓存处理
 
@@ -129,7 +130,7 @@ GitHub 官方明确说明 schedule 可能排队、延迟甚至丢弃；非默认
 5. 查看配置 → 编辑配置 → 规则集 URL，确认所有对象下载成功，然后使用/编译配置。只查看 Raw 文件日期不能证明手机已下载并编译。
 6. 分别在解锁和锁屏状态下，将自动化临时设为两分钟后测试；确定真实行为后恢复 08:00。首次手动授权联网和打开 Shadowrocket。
 
-已做的验证范围是 Python 解析、白名单/去重回归、输出哈希、IP 的 no-resolve、模板层级与重写正则检查。**没有连接到你的 iPhone，未做 Shadowrocket 真机编译、广告效果和锁屏自动化测试。**
+已做的验证范围是 Python 解析、白名单/去重回归、输出哈希、IP 的 no-resolve、模板层级、重写/脚本引用和 11 组合成响应检查（需要 Node.js）。**没有连接到你的 iPhone，未做 Shadowrocket 真机编译、广告效果和锁屏自动化测试。**
 
 ## 8. 核实依据
 

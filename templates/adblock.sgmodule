@@ -1,7 +1,7 @@
 #!name=Independent-AdBlock
-#!desc=独立去广告；构建 {{GENERATED_AT}}；关闭此模块即关闭本方案全部去广告
+#!desc=v2 知乎/微博广告过滤；构建 {{GENERATED_AT}}；关闭模块即关闭本方案全部去广告
 # {{DEPLOYMENT_NOTE}}
-# 域名层无需证书；HTTPS 路径重写需要单独开启 MITM。
+# 域名层无需证书；HTTPS 路径重写和响应脚本都需要开启 MITM 并信任 CA。
 # 模块规则优先于主配置，白名单已在生成 adblock.list 时剔除。
 
 [Rule]
@@ -13,16 +13,27 @@
 RULE-SET,{{RULE_adblock}},REJECT
 
 [URL Rewrite]
-# 只处理少量明确的广告/广告统计接口，不触碰登录、支付和通用推荐接口。
+# 只拒绝明确的广告/广告统计接口；含正常内容的推荐接口由脚本过滤。
 # 空字典/空响应只适用于兼容的接口；不同 App 版本仍需实际验证。
 ^https?:\/\/api\.zhihu\.com\/fringe\/ad(?:[/?]|$) - reject-dict
 ^https?:\/\/api\.zhihu\.com\/commercial_api\/answer\/\d+\/bottom-v2(?:[/?]|$) - reject-dict
+^https?:\/\/api\.zhihu\.com\/commercial_api\/(?:launch_v2|real_time_launch_v2|banners_v3\/app_topstory_banner)(?:[/?]|$) - reject-dict
+^https?:\/\/api\.zhihu\.com\/ad-style-service\/request(?:[/?]|$) - reject-dict
+^https?:\/\/m?api\.weibo\.(?:cn|com)\/2\/ad\/preload(?:[/?]|$) - reject-dict
+^https?:\/\/bootpreload\.uve\.weibo\.com\/v\d+\/ad\/preload(?:[/?]|$) - reject-dict
+^https?:\/\/bootrealtime\.uve\.weibo\.com\/v\d+\/ad\/realtime(?:[/?]|$) - reject-dict
 ^https?:\/\/sdkapp\.uve\.weibo\.com\/interface\/sdk\/actionad\.php(?:\?|$) - reject-dict
 ^https?:\/\/ad\.cj\.sina\.cn\/(?:osa\/adpreload|fax\/impress)(?:[/?]|$) - reject-200
 ^https?:\/\/msg\.umengcloud\.com\/admsg\/ - reject
+
+[Script]
+# 本仓库内维护的原生响应脚本；按内容哈希发布，未识别数据保持原样。
+# 不改会员、登录、支付或普通文章；日志只记过滤数量。
+Zhihu-AdFeed = type=http-response,script-path={{SCRIPT_domestic_ads}},pattern=^https?:\/\/(?:(?:api|web-render)\.zhihu\.com\/topstory\/recommend|api\.zhihu\.com\/(?:next-render|questions\/\d+\/feeds?|moments_v3))(?:[/?]|$),requires-body=1,timeout=10,engine=jsc
+Weibo-AdFeed = type=http-response,script-path={{SCRIPT_domestic_ads}},pattern=^https?:\/\/m?api\.weibo\.(?:cn|com)\/2\/(?:statuses\/(?:friends\/timeline|(?:unread_)?friends_timeline|unread_hot_timeline|container_timeline(?:_hot|_unread|_topic|_topicpage)?|container_detail(?:_comment|_mix|_forward)?|repost_timeline|extend)|groups\/timeline|cardlist|searchall|page|flowpage|search\/(?:finder|container_timeline|container_discover)|comments\/(?:mix_comments|build_comments))(?:[/?]|$),requires-body=1,timeout=10,engine=jsc
 
 [MITM]
 # 此处仅追加明确主机名，不自动启用 HTTPS 解密、不携带 CA 或私钥。
 # 不使用 *、*.com、*.cn、*.qq.com、*.alipay.com 等宽泛解密范围。
 # 不添加网银/支付/身份认证/Apple 推送服务器；其他模块的范围也需检查。
-hostname = %APPEND% api.zhihu.com,sdkapp.uve.weibo.com,ad.cj.sina.cn,msg.umengcloud.com
+hostname = %APPEND% api.zhihu.com,web-render.zhihu.com,api.weibo.cn,api.weibo.com,mapi.weibo.cn,mapi.weibo.com,bootpreload.uve.weibo.com,bootrealtime.uve.weibo.com,sdkapp.uve.weibo.com,ad.cj.sina.cn,msg.umengcloud.com
