@@ -201,8 +201,10 @@ def validate_output(folder: Path):
     routing = (folder / "routing.conf").read_text()
     if "[URL Rewrite]" in routing or "REJECT" in routing.split("[Rule]", 1)[1]:
         raise ValueError("adblock leaked into routing rules")
-    if "FINAL,Proxy,dns-failed" not in routing:
-        raise ValueError("missing final rule")
+    final_rules = [row.strip().split(",") for row in routing.splitlines()
+                   if row.startswith("FINAL,")]
+    if len(final_rules) != 1 or len(final_rules[0]) != 3 or final_rules[0][2] != "dns-failed":
+        raise ValueError("missing or invalid final rule")
     for f in list((folder / "rules").glob("*.list")) + [folder / "adblock.list"]:
         for line in f.read_text().splitlines():
             if line.startswith(tuple(t + "," for t in IP_TYPES)) and not line.endswith(",no-resolve"):
@@ -233,6 +235,8 @@ def validate_output(folder: Path):
                 visit(child, stack | {name})
     for name in graph:
         visit(name, set())
+    if final_rules[0][1] not in graph and final_rules[0][1] != "PROXY":
+        raise ValueError("final rule points to an undefined proxy policy")
     module = (folder / "adblock.sgmodule").read_text()
     if "(DEST-PORT," in module or "hostname = %APPEND%" not in module:
         raise ValueError("invalid module syntax")
