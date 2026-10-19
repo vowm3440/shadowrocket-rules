@@ -70,6 +70,8 @@ class RuleBehaviorTests(unittest.TestCase):
         for row in block.splitlines():
             if " = " in row and not row.startswith("#"):
                 name, definition = row.split(" = ", 1)
+                if definition.startswith("select,"):
+                    self.assertNotIn("policy-regex-filter=", definition)
                 groups[name] = [part for part in definition.split(",")[1:] if "=" not in part]
         # Simulate no dynamically discovered nodes and no successful URL tests.
         # The first static member must still reach the app's selected endpoint.
