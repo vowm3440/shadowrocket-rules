@@ -63,6 +63,27 @@ class RuleBehaviorTests(unittest.TestCase):
         self.assertEqual(positions, sorted(positions))
         self.assertNotIn("RULE_adblock", text)
 
+    def test_manual_node_works_without_dynamic_filter_or_probe_results(self):
+        text = (b.ROOT / "templates/routing.conf").read_text()
+        block = text.split("[Proxy Group]", 1)[1].split("[Rule]", 1)[0]
+        groups = {}
+        for row in block.splitlines():
+            if " = " in row and not row.startswith("#"):
+                name, definition = row.split(" = ", 1)
+                groups[name] = [part for part in definition.split(",")[1:] if "=" not in part]
+        # Simulate no dynamically discovered nodes and no successful URL tests.
+        # The first static member must still reach the app's selected endpoint.
+        for entry in ["ProxySelect", "OpenAI", "Claude", "Gemini", "Netflix", "YouTube", "Disney+", "Telegram"]:
+            seen = set()
+            current = entry
+            while current in groups:
+                self.assertNotIn(current, seen)
+                seen.add(current)
+                current = groups[current][0]
+            self.assertEqual(current, "PROXY", entry)
+        self.assertTrue(all(name.upper() not in {"PROXY", "DIRECT", "REJECT"} for name in groups))
+        self.assertIn("FINAL,ProxySelect,dns-failed", text)
+
 
 if __name__ == "__main__":
     unittest.main()
