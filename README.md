@@ -14,7 +14,7 @@
 
 1. 在 Shadowrocket 首页添加你已有的节点/机场订阅，选一个可用的默认节点。
 2. 配置 → 右上角 `+` → 输入上面的主配置地址 → 下载 → 点文件 → **使用配置/编译配置**。
-3. 首页的“全局路由”选择 **配置**。
+3. 首页选中可用节点（单节点也适用），再将“全局路由”选择 **配置**。r3 的 `ProxySelect` 默认使用首页所选节点；不用先等 Auto 测速。
 4. 配置 → 模块 → `+` → 输入广告模块地址 → 下载并启用 → 重新编译配置。域名过滤不需要证书。
 5. 在模块页关闭 `Independent-AdBlock`，即可关闭本方案全部去广告；主配置的分流继续工作。若还装了其他广告模块，它们仍会独立生效。
 6. 知乎/微博的 HTTPS 路径与信息流过滤，需要按第 4 节在本机设置 MITM。**v2 更新及广告残留排查见 [`docs/adblock-v2.md`](docs/adblock-v2.md)**；不向本仓库上传 CA 私钥。
@@ -56,13 +56,13 @@ python3 scripts/validate.py
 
 ## 3. 分流设计与实际取舍
 
-主配置的六层顺序是：Direct/Unbreak 修正 → AI/Telegram/流媒体/Apple/Microsoft 专项 → 境外 Proxy/GFW 域名 → LAN/中国域名 → 中国 IP/GEOIP → `FINAL,Proxy,dns-failed`。DIRECT 使用内置策略，不重复创建同名组；`Proxy` 是自定义总代理，组内直接列出 Auto/Fallback 和匹配节点；避免再引用近似同名的内置 PROXY。Auto/Fallback 直接挑选现有节点，AI 与流媒体另有手动出口组。
+主配置的六层顺序是：Direct/Unbreak 修正 → AI/Telegram/流媒体/Apple/Microsoft 专项 → 境外 Proxy/GFW 域名 → LAN/中国域名 → 中国 IP/GEOIP → `FINAL,ProxySelect,dns-failed`。DIRECT 使用内置策略，不重复创建同名组；`ProxySelect` 是自定义总代理，第一项 `PROXY` 是 Shadowrocket 内置的首页所选节点；Auto/Fallback 为可选模式，额外筛选设备节点。这样即使正则未发现节点、测速尚未完成或测速网址不可用，默认路径仍能使用手动导入的节点。自定义组不使用与内置 `PROXY` 近似的名称。AI 与流媒体另有手动出口组。
 
 中国域名集合放在第四层，不放进第一层白名单，避免提前吞掉 AI 等专项规则。上游 Unbreak 中与 AI/流媒体等域名相交叠的条目会扣除；Unbreak 只保留精确域名/后缀，省略宽泛关键词与 UA 规则。**最终匹配还受 Shadowrocket 编译器的域名/IP 优先与 GeoIP 推断排序影响，不能把文本顺序理解为跨所有规则类型的绝对顺序。**
 
 所有 IP 子条目统一带 `,no-resolve`，包含 IP 的主配置 `RULE-SET` 也带该参数。它的作用是**不为了判断 IP 规则额外触发域名解析**；不会修复已经污染的 DNS，也不阻止直连建立连接所需的正常解析。未被中国域名集覆盖的国内域名可能直接进入最终代理，这是坚持 `no-resolve` 的代价。
 
-国内直连域名使用 AliDNS/DNSPod DoH，境外默认/备用 DNS 使用经默认代理的 Cloudflare/Google DoH；节点域名有单独的国内加密引导解析，国内 DoH 的引导 IP 在 `[Host]` 中固定。DoT 替代写法见主配置注释。没有把国内和国外 DNS 混在一组并发争抢结果，也没有主动设置明文备用 `system`。`#proxy` 以首页默认节点为准，不要误认为必定跟随自定义 `Proxy` 组。
+国内直连域名使用 AliDNS/DNSPod DoH，境外默认/备用 DNS 使用经默认代理的 Cloudflare/Google DoH；节点域名有单独的国内加密引导解析，国内 DoH 的引导 IP 在 `[Host]` 中固定。DoT 替代写法见主配置注释。没有把国内和国外 DNS 混在一组并发争抢结果，也没有主动设置明文备用 `system`。`#proxy` 以首页默认节点为准，不要误认为必定跟随自定义 `ProxySelect` 组。
 
 `ipv6=false` 是偏兼容的初始值，**不是系统级防泄漏承诺**。IPv6-only/NAT64 网络、系统绕行流量和 App 自带 DoH/DoT 需要另外实测。`hijack-dns=:53` 仅处理进入隧道的传统 DNS。`tun-excluded-routes` 只旁路本地/保留网络，不旁路 Fake-IP 常用的 `198.18.0.0/15`；使用 Tailscale 时请注意 CGNAT 地址段 `100.64.0.0/10` 的交互。
 
@@ -121,7 +121,27 @@ GitHub 官方明确说明 schedule 可能排队、延迟甚至丢弃；非默认
 
 “快捷指令 → 自动化 → 特定时间 → 每天 08:00 → 立即运行”能安排当时尝试任务；锁屏、重启后未解锁、跨 App 打开 URL、导入确认、断网或系统调度都可能让实际应用延后。把 `autoclose=true` 加进 URL 也不会赋予后台权限或证明更新成功。**严谨交付是“08:00 尝试、校验版本、失败保留旧版、必要时提示手动完成”，不是无法验证的准点静默保证。**
 
-## 7. 实机验收与故障定位
+## 7. 单个 VLESS/REALITY 节点与实机排查
+
+2026-10-19 的 **r3** 改为默认直接使用首页所选节点，保留六层分流、加密 DNS 和独立广告模块。节点凭据继续只在设备中保存；公共 `routing.conf` 不包含节点服务器、UUID、REALITY 公钥或短 ID。
+
+Karing/sing-box 的完整 JSON 不是 Shadowrocket 主配置，也不是可直接粘贴导入的单节点链接。请先将对应 VLESS 节点导入 Shadowrocket，再使用本仓库分流配置。对 **TCP + REALITY + Vision**，核对以下字段：
+
+| 字段 | 设置 |
+| --- | --- |
+| 类型/传输 | VLESS；TCP/RAW（无 WebSocket/gRPC） |
+| TLS/安全 | REALITY；保留原节点 SNI、公钥、短 ID |
+| UUID | 与服务端一致 |
+| Flow/XTLS | `xtls-rprx-vision`（Vision） |
+| 指纹 | `chrome` |
+| ALPN | 默认/留空，不强制单独的 `h3` |
+| 允许不安全、Mux、代理转发/Proxy Pass | 初次连接时关闭或留空 |
+
+这类节点的外层是 TCP；广告模块的 UDP/443 拦截不会直接拦截外层 TCP/443。更改分流配置无法自动修正首页已保存的错误节点参数。若同一节点在“全局路由 → 代理”也不能访问 HTTPS，需要检查节点字段、客户端与服务端版本和服务端可达性，不能只归因于分流规则。
+
+当前环境不能直连任意外部 TCP 端点（返回 `Network is unreachable`），因此未验证用户节点的 REALITY 握手，也未操作用户 iPhone。配置编译和手机联网仍需按下列步骤实测。
+
+### 实机验收与故障定位
 
 1. 先仅启用主配置。检查节点、境内网站、ChatGPT/Claude/Gemini、Telegram 与各流媒体；在数据 → 代理日志中确认实际命中的策略。
 2. 启用广告模块并编译。比较广告域名的拒绝记录；域名过滤不需要 MITM，只有精确 HTTPS 路径规则需要。
