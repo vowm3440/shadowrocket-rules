@@ -1,5 +1,5 @@
 #!name=Independent-AdBlock
-#!desc=v2 知乎/微博广告过滤；构建 2026-10-22T09:55:14+08:00；关闭模块即关闭本方案全部去广告
+#!desc=v2 知乎/微博广告过滤；构建 2026-10-23T10:00:25+08:00；关闭模块即关闭本方案全部去广告
 # 仓库：vowm3440/shadowrocket-rules；分支：main
 # 域名层无需证书；HTTPS 路径重写和响应脚本都需要开启 MITM 并信任 CA。
 # 模块规则优先于主配置，白名单已在生成 adblock.list 时剔除。
@@ -10,7 +10,7 @@
 # 阻断进入隧道的 UDP/443，使支持回退的 HTTP/3 改走 TCP。
 # 不能使 YouTube 同源视频广告自动消失，也不阻断其他端口上的 QUIC。
 AND,((PROTOCOL,UDP),(DST-PORT,443)),REJECT
-RULE-SET,https://raw.githubusercontent.com/vowm3440/shadowrocket-rules/main/objects/d872add377b0016fabcf4beb674ce4fce10f1757bce6779fe1532b647c7eab24.list,REJECT
+RULE-SET,https://raw.githubusercontent.com/vowm3440/shadowrocket-rules/main/objects/62fc6cba4d3258309346ca7bad2817977261c406f8694f5bb3094382c97f9a16.list,REJECT
 
 [URL Rewrite]
 # 只拒绝明确的广告/广告统计接口；含正常内容的推荐接口由脚本过滤。
